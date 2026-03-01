@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Strona</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+/* Główne zdjęcie */
+.main-img {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    z-index: 1;
+}
+
+/* Napis środkowy */
+.center-text {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.6);
+    padding: 25px 50px;
+    border-radius: 20px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Paski boczne */
+.side-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+}
+
+.left-side {
+    left: 0;
+}
+
+.right-side {
+    right: 0;
+}
+
+/* Napis maliś */
+.side-text {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    opacity: 0.8;
+    transform: rotate(-90deg);
+}
+
+.right-side .side-text {
+    transform: rotate(90deg);
+}
+
+/* Mini zdjęcia na paskach */
+.side-img {
+    width: 70px;
+    margin: 10px 0;
+}
+
+/* Spadające mini zdjęcia */
+.floating {
+    position: absolute;
+    width: 60px;
+    animation: fall linear forwards;
+    z-index: 3;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.9;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<img src="tlo.jpg" class="main-img">
+
+<div class="center-text">
+    JESTEM PEDAŁEM I RUCHAŁEM KOLEGE </div>
+
+<!-- LEWA STRONA -->
+<div class="side-container left-side">
+    <div class="side-text">maliś</div>
+    <img src="mini.jpg" class="side-img">
+    <div class="side-text">maliś</div>
+    <img src="mini.jpg" class="side-img">
+    <div class="side-text">maliś</div>
+</div>
+
+<!-- PRAWA STRONA -->
+<div class="side-container right-side">
+    <div class="side-text">maliś</div>
+    <img src="mini.jpg" class="side-img">
+    <div class="side-text">maliś</div>
+    <img src="mini.jpg" class="side-img">
+    <div class="side-text">maliś</div>
+</div>
+
+<script>
+function createImage() {
+    const img = document.createElement("img");
+    img.src = "mini.jpg";
+    img.classList.add("floating");
+
+    img.style.left = Math.random() * window.innerWidth + "px";
+    img.style.animationDuration = (3 + Math.random() * 3) + "s";
+    img.style.width = (40 + Math.random() * 40) + "px";
+
+    document.body.appendChild(img);
+
+    setTimeout(() => {
+        img.remove();
+    }, 6000);
+}
+
+setInterval(createImage, 400);
+</script>
+
+</body>
+</html>
